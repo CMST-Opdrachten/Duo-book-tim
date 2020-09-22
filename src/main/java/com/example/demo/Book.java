@@ -45,6 +45,7 @@ public class Book {
         this.publisher = publisher;
     }
 
+
     @Override
     public boolean equals(Object o) {
 
