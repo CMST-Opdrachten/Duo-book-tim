@@ -28,7 +28,7 @@ SET FILES NIO TRUE
 SET FILES NIO SIZE 256
 SET FILES LOG TRUE
 SET FILES LOG SIZE 50
-SET FILES CHECK 1000
+SET FILES CHECK 1299
 SET DATABASE COLLATION "SQL_TEXT" PAD SPACE
 CREATE USER SA PASSWORD DIGEST 'd41d8cd98f00b204e9800998ecf8427e'
 ALTER USER SA SET LOCAL TRUE
@@ -36,7 +36,7 @@ CREATE SCHEMA PUBLIC AUTHORIZATION DBA
 CREATE SEQUENCE PUBLIC.HIBERNATE_SEQUENCE AS INTEGER START WITH 1
 CREATE MEMORY TABLE PUBLIC.BOOK(ID NUMERIC(19,2) NOT NULL PRIMARY KEY,PUBLISHER VARCHAR(255),TITLE VARCHAR(255))
 ALTER SEQUENCE SYSTEM_LOBS.LOB_ID RESTART WITH 1
-ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 203
+ALTER SEQUENCE PUBLIC.HIBERNATE_SEQUENCE RESTART WITH 244
 SET DATABASE DEFAULT INITIAL SCHEMA PUBLIC
 GRANT USAGE ON DOMAIN INFORMATION_SCHEMA.SQL_IDENTIFIER TO PUBLIC
 GRANT USAGE ON DOMAIN INFORMATION_SCHEMA.YES_OR_NO TO PUBLIC
@@ -249,3 +249,44 @@ INSERT INTO BOOK VALUES(199.00,'w\ufffdf\ufffd\u0012\ufffdj','@\ufffdo\ufffd\uff
 INSERT INTO BOOK VALUES(200.00,'w\ufffdf\ufffd\u0012\ufffdj','@\ufffdo\ufffd\ufffd\u01f4')
 INSERT INTO BOOK VALUES(201.00,'w\ufffdf\ufffd\u0012\ufffdj','@\ufffdo\ufffd\ufffd\u01f4')
 INSERT INTO BOOK VALUES(202.00,'w\ufffdf\ufffd\u0012\ufffdj','@\ufffdo\ufffd\ufffd\u01f4')
+INSERT INTO BOOK VALUES(203.00,'\ufffd@\ufffdN\ufffdh\u001d','?)xi\ufffd\ufffdy')
+INSERT INTO BOOK VALUES(204.00,'\ufffd@\ufffdN\ufffdh\u001d','?)xi\ufffd\ufffdy')
+INSERT INTO BOOK VALUES(205.00,'\ufffd@\ufffdN\ufffdh\u001d','?)xi\ufffd\ufffdy')
+INSERT INTO BOOK VALUES(206.00,'\ufffd@\ufffdN\ufffdh\u001d','?)xi\ufffd\ufffdy')
+INSERT INTO BOOK VALUES(207.00,'\ufffd@\ufffdN\ufffdh\u001d','?)xi\ufffd\ufffdy')
+INSERT INTO BOOK VALUES(208.00,'\ufffd@\ufffdN\ufffdh\u001d','?)xi\ufffd\ufffdy')
+INSERT INTO BOOK VALUES(209.00,'\ufffd@\ufffdN\ufffdh\u001d','?)xi\ufffd\ufffdy')
+INSERT INTO BOOK VALUES(210.00,'\ufffd@\ufffdN\ufffdh\u001d','?)xi\ufffd\ufffdy')
+INSERT INTO BOOK VALUES(211.00,'\ufffd@\ufffdN\ufffdh\u001d','?)xi\ufffd\ufffdy')
+INSERT INTO BOOK VALUES(212.00,'\ufffd@\ufffdN\ufffdh\u001d','?)xi\ufffd\ufffdy')
+INSERT INTO BOOK VALUES(213.00,'\ufffd@\ufffdN\ufffdh\u001d','?)xi\ufffd\ufffdy')
+INSERT INTO BOOK VALUES(214.00,'\ufffd@\ufffdN\ufffdh\u001d','?)xi\ufffd\ufffdy')
+INSERT INTO BOOK VALUES(215.00,'\ufffd@\ufffdN\ufffdh\u001d','?)xi\ufffd\ufffdy')
+INSERT INTO BOOK VALUES(216.00,'\ufffd@\ufffdN\ufffdh\u001d','?)xi\ufffd\ufffdy')
+INSERT INTO BOOK VALUES(217.00,'\ufffd@\ufffdN\ufffdh\u001d','?)xi\ufffd\ufffdy')
+INSERT INTO BOOK VALUES(218.00,'\ufffd@\ufffdN\ufffdh\u001d','?)xi\ufffd\ufffdy')
+INSERT INTO BOOK VALUES(219.00,'\ufffd@\ufffdN\ufffdh\u001d','?)xi\ufffd\ufffdy')
+INSERT INTO BOOK VALUES(220.00,'\ufffd@\ufffdN\ufffdh\u001d','?)xi\ufffd\ufffdy')
+INSERT INTO BOOK VALUES(221.00,'\ufffd@\ufffdN\ufffdh\u001d','?)xi\ufffd\ufffdy')
+INSERT INTO BOOK VALUES(222.00,'\ufffd@\ufffdN\ufffdh\u001d','?)xi\ufffd\ufffdy')
+INSERT INTO BOOK VALUES(223.00,'Z\ufffdS{\ufffd\ufffd\ufffd','\u069b\ufffd>\ufffdM')
+INSERT INTO BOOK VALUES(224.00,'Z\ufffdS{\ufffd\ufffd\ufffd','\u069b\ufffd>\ufffdM')
+INSERT INTO BOOK VALUES(225.00,'Z\ufffdS{\ufffd\ufffd\ufffd','\u069b\ufffd>\ufffdM')
+INSERT INTO BOOK VALUES(226.00,'Z\ufffdS{\ufffd\ufffd\ufffd','\u069b\ufffd>\ufffdM')
+INSERT INTO BOOK VALUES(227.00,'Z\ufffdS{\ufffd\ufffd\ufffd','\u069b\ufffd>\ufffdM')
+INSERT INTO BOOK VALUES(228.00,'Z\ufffdS{\ufffd\ufffd\ufffd','\u069b\ufffd>\ufffdM')
+INSERT INTO BOOK VALUES(229.00,'Z\ufffdS{\ufffd\ufffd\ufffd','\u069b\ufffd>\ufffdM')
+INSERT INTO BOOK VALUES(230.00,'Z\ufffdS{\ufffd\ufffd\ufffd','\u069b\ufffd>\ufffdM')
+INSERT INTO BOOK VALUES(231.00,'Z\ufffdS{\ufffd\ufffd\ufffd','\u069b\ufffd>\ufffdM')
+INSERT INTO BOOK VALUES(232.00,'Z\ufffdS{\ufffd\ufffd\ufffd','\u069b\ufffd>\ufffdM')
+INSERT INTO BOOK VALUES(233.00,'Z\ufffdS{\ufffd\ufffd\ufffd','\u069b\ufffd>\ufffdM')
+INSERT INTO BOOK VALUES(234.00,'Z\ufffdS{\ufffd\ufffd\ufffd','\u069b\ufffd>\ufffdM')
+INSERT INTO BOOK VALUES(235.00,'Z\ufffdS{\ufffd\ufffd\ufffd','\u069b\ufffd>\ufffdM')
+INSERT INTO BOOK VALUES(236.00,'Z\ufffdS{\ufffd\ufffd\ufffd','\u069b\ufffd>\ufffdM')
+INSERT INTO BOOK VALUES(237.00,'Z\ufffdS{\ufffd\ufffd\ufffd','\u069b\ufffd>\ufffdM')
+INSERT INTO BOOK VALUES(238.00,'Z\ufffdS{\ufffd\ufffd\ufffd','\u069b\ufffd>\ufffdM')
+INSERT INTO BOOK VALUES(239.00,'Z\ufffdS{\ufffd\ufffd\ufffd','\u069b\ufffd>\ufffdM')
+INSERT INTO BOOK VALUES(240.00,'Z\ufffdS{\ufffd\ufffd\ufffd','\u069b\ufffd>\ufffdM')
+INSERT INTO BOOK VALUES(241.00,'Z\ufffdS{\ufffd\ufffd\ufffd','\u069b\ufffd>\ufffdM')
+INSERT INTO BOOK VALUES(242.00,'Z\ufffdS{\ufffd\ufffd\ufffd','\u069b\ufffd>\ufffdM')
+INSERT INTO BOOK VALUES(243.00,'coolio','test')
