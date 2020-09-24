@@ -16,21 +16,5 @@ import static org.hamcrest.CoreMatchers.is;
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class IntegrationTest {
 
-    @Test
-    public void testBooks() {
-        System.out.println("testing");
 
-
-        get("http://localhost:8080/all")
-                .then()
-                .assertThat()
-                .statusCode(200);
-
-        get("http://localhost:8080/books/1")
-                .then()
-                .assertThat()
-                .statusCode(200)
-                .body("size()", is(3));
-
-    }
 }
