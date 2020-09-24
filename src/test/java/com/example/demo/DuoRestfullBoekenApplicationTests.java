@@ -1,10 +1,18 @@
 package com.example.demo;
 
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.scheduling.annotation.Async;
+
+import java.math.BigInteger;
+import java.sql.SQLOutput;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.CoreMatchers.is;
@@ -12,28 +20,28 @@ import static org.hamcrest.CoreMatchers.is;
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.DEFINED_PORT)
 class DuoRestfullBoekenApplicationTests {
 
+    BigInteger id;
+
     @Test
     void contextLoads() {
     }
 
     @Test
+    void integrationTests() {
+
+        postTests();
+        getTests();
+        delTest();
+
+    }
+
     void postTests() {
         System.out.println("testing post");
 
-        String json = "{ \"title\": \"Lord of the rings (Updated)\", \"publisher\": \"J.R.R. Tolkien\" }";
-        String json2 = "{ \"id\": 2,\"title\": \"New book test\", \"publisher\": \"Test publisher\" }";
+        String json1 = "{ \"title\": \"Lord of the rings (Updated)\", \"publisher\": \"J.R.R. Tolkien\" }";
+        String json2 = "{ \"title\": \"New book test\", \"publisher\": \"Test publisher\" }";
 
-        given()
-                .contentType(ContentType.JSON)
-                .body(json)
-                .put("http://localhost:8080/books/1")
-                .then()
-                .assertThat()
-                .statusCode(200)
-                .extract()
-                .response();
-
-        given()
+        Integer id = given()
                 .contentType(ContentType.JSON)
                 .body(json2)
                 .post("http://localhost:8080/books")
@@ -41,18 +49,29 @@ class DuoRestfullBoekenApplicationTests {
                 .assertThat()
                 .statusCode(200)
                 .extract()
+                .path("id");
+
+        this.id = BigInteger.valueOf(id);
+        System.out.println(this.id);
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(json1)
+                .put("http://localhost:8080/books/" + this.id)
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .extract()
                 .response();
 
-        get("http://localhost:8080/books/1")
+        get("http://localhost:8080/books/" + this.id)
                 .then()
                 .assertThat()
                 .statusCode(200)
                 .body("title", Matchers.equalTo("Lord of the rings (Updated)"));
-
-
     }
 
-    @Test
+
     void getTests() {
         System.out.println("testing get");
 
@@ -61,7 +80,7 @@ class DuoRestfullBoekenApplicationTests {
                 .assertThat()
                 .statusCode(200);
 
-        get("http://localhost:8080/books/1")
+        get("http://localhost:8080/books/" + this.id)
                 .then()
                 .assertThat()
                 .statusCode(200)
@@ -73,15 +92,16 @@ class DuoRestfullBoekenApplicationTests {
                 .statusCode(200);
     }
 
-    @Test
     void delTest() {
         System.out.println("testing delete");
 
-        delete("http://localhost:8080/book/9")
+        delete("http://localhost:8080/book/" + id)
                 .then()
                 .assertThat()
                 .statusCode(200);
+        System.out.println(id);
 
     }
+
 }
 
