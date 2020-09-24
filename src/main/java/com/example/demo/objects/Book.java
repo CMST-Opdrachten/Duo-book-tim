@@ -1,9 +1,8 @@
-package com.example.demo;
+package com.example.demo.objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import java.math.BigInteger;
 import java.util.Objects;
 

@@ -1,9 +1,9 @@
-package com.example.demo;
+package com.example.demo.exceptions;
 
 import java.math.BigInteger;
 
 public class BookNotFoundException extends RuntimeException {
-    BookNotFoundException(BigInteger id) {
+    public BookNotFoundException(BigInteger id) {
         super("Could not find book " + id);
     }
 }
