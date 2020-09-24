@@ -21,7 +21,7 @@ class DuoRestfullBoekenApplicationTests {
         System.out.println("testing post");
 
         String json = "{ \"title\": \"Lord of the rings (Updated)\", \"publisher\": \"J.R.R. Tolkien\" }";
-        String json2 = "{ \"title\": \"New book test\", \"publisher\": \"Test publisher\" }";
+        String json2 = "{ \"id\": 2,\"title\": \"New book test\", \"publisher\": \"Test publisher\" }";
 
         given()
                 .contentType(ContentType.JSON)
@@ -49,10 +49,6 @@ class DuoRestfullBoekenApplicationTests {
                 .statusCode(200)
                 .body("title", Matchers.equalTo("Lord of the rings (Updated)"));
 
-        get("http://localhost:8080/books/2")
-                .then()
-                .assertThat()
-                .statusCode(200);
 
     }
 
@@ -81,16 +77,11 @@ class DuoRestfullBoekenApplicationTests {
     void delTest() {
         System.out.println("testing delete");
 
-        delete("http://localhost:8080/book/2")
+        delete("http://localhost:8080/book/9")
                 .then()
                 .assertThat()
                 .statusCode(200);
 
-        get("http://localhost:8080/book/2")
-                .then()
-                .assertThat()
-                .statusCode(200)
-                .body(Matchers.equalTo(null));
     }
 }
 
