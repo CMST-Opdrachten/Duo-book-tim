@@ -52,7 +52,6 @@ class DuoRestfullBoekenApplicationTests {
                 .path("id");
 
         this.id = BigInteger.valueOf(id);
-        System.out.println(this.id);
 
         given()
                 .contentType(ContentType.JSON)
@@ -99,7 +98,6 @@ class DuoRestfullBoekenApplicationTests {
                 .then()
                 .assertThat()
                 .statusCode(200);
-        System.out.println(id);
 
     }
 

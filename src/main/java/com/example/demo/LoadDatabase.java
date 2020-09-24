@@ -26,8 +26,6 @@ public class LoadDatabase {
     @Bean
     public String devDatabaseConnection() {
         System.out.println("DB connection for DEV - HSQLDB");
-        System.out.println(driverClassName);
-        System.out.println(url);
         return "DB Connection for DEV - HSQLDB";
     }
 
@@ -35,8 +33,6 @@ public class LoadDatabase {
     @Bean
     public String prodDatabaseConnection() {
         System.out.println("DB connection for production - postgresDB");
-        System.out.println(driverClassName);
-        System.out.println(url);
         return "DB connection for production - postgresDB";
     }
 }
