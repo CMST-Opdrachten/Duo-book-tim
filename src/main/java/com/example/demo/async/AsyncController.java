@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -23,7 +24,7 @@ public class AsyncController {
     private AsyncService service;
 
     @RequestMapping(value =  "/getAllAsync", method = RequestMethod.GET)
-    public List<Book> testAsync() throws InterruptedException, ExecutionException {
+    public List<Book> getAllAsync() throws InterruptedException, ExecutionException {
         log.info("testAsync starting");
 
         CompletableFuture<List<Book>> book = service.getAllBooks();
@@ -32,5 +33,6 @@ public class AsyncController {
         log.info(String.valueOf(book.get()));
         return book.get();
     }
+
 
 }
