@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -26,13 +27,12 @@ public class AsyncService {
     }
 
     @Async("asyncExecutor")
-    public CompletableFuture<Book> getAllBooks() throws InterruptedException{
+    public CompletableFuture<List<Book>> getAllBooks() throws InterruptedException{
         log.info("getAllBooks starts");
 
-        Book booksData = restTemplate.getForObject("http://localhost:8080/all", Book.class);
-                Thread.sleep(10000);
+        Book[] response = restTemplate.getForObject("http://localhost:8080/all", Book[].class);
+                Thread.sleep(2000);
         log.info("Done.");
-        log.info(String.valueOf(booksData));
-        return CompletableFuture.completedFuture(booksData);
+        return CompletableFuture.completedFuture(Arrays.asList(response));
     }
 }

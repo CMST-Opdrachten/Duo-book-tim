@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -16,14 +17,16 @@ public class AsyncController {
 
     private static Logger log = LoggerFactory.getLogger(AsyncController.class);
 
+
+
     @Autowired
     private AsyncService service;
 
-    @RequestMapping(value =  "/testAsync", method = RequestMethod.GET)
-    public Book testAsync() throws InterruptedException, ExecutionException {
+    @RequestMapping(value =  "/getAllAsync", method = RequestMethod.GET)
+    public List<Book> testAsync() throws InterruptedException, ExecutionException {
         log.info("testAsync starting");
 
-        CompletableFuture<Book> book = service.getAllBooks();
+        CompletableFuture<List<Book>> book = service.getAllBooks();
 
         CompletableFuture.allOf(book).join();
         log.info(String.valueOf(book.get()));
