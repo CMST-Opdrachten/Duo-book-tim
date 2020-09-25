@@ -5,13 +5,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.*;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import com.itextpdf.text.Document;
 
+import java.io.ByteArrayInputStream;
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -48,12 +52,14 @@ public class AsyncService {
     }
 
     @Async("asyncExecutor")
-    public CompletableFuture<String> getPdf() throws InterruptedException{
+    public CompletableFuture<ResponseEntity> getBooksPdf() throws InterruptedException{
         log.info("getPDF starts");
 
-        String response = restTemplate.getForObject("http://localhost:8080/books/pdf", String.class);
-                Thread.sleep(2000);
         log.info("Done.");
+        Thread.sleep(2000);
+
+        ResponseEntity response = restTemplate.getForObject("http://localhost:8080/books/pdf", ResponseEntity.class)
+
         return CompletableFuture.completedFuture(response);
     }
 }

@@ -1,14 +1,18 @@
 package com.example.demo.async;
 
 import com.example.demo.objects.Book;
-import com.itextpdf.text.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -32,14 +36,14 @@ public class AsyncController {
         return book.get();
     }
 
-    @RequestMapping(value =  "/getPdf", method = RequestMethod.GET)
-    public String getPdf() throws InterruptedException, ExecutionException {
+    @RequestMapping(value =  "/getBooksPdf", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity getBooksPdf() throws InterruptedException, ExecutionException {
         log.info("test pdf starting");
 
-        CompletableFuture<String> doc = service.getPdf();
+        CompletableFuture<ResponseEntity> bis = service.getBooksPdf();
+        CompletableFuture.allOf(bis).join();
 
-        CompletableFuture.allOf(doc).join();
-        return doc.get();
+        return bis.get();
     }
 
 }

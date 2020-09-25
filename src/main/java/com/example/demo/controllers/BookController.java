@@ -11,9 +11,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.math.BigInteger;
@@ -40,14 +46,17 @@ public class BookController {
         return repository.findAll();
     }
 
-    @RequestMapping(value = "/books/pdf", method = RequestMethod.GET)
-    String pdf() throws FileNotFoundException, DocumentException {
-        String filename = "pdftests/booklist" + rand.nextInt() + ".pdf";
-        Document doc = createPdf(filename);
-        doc.open();
-        doc.add(addPdfList(repository.findAll(), doc));
-        doc.close();
-        return "PDF created at " + System.getProperty("user.dir") + "/" + filename;
+    @RequestMapping(value = "/books/pdf", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
+    ResponseEntity<InputStreamResource> pdf() throws FileNotFoundException, DocumentException {
+        ByteArrayInputStream bis = createBookPdf(repository.findAll());
+
+        var headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=bookreport.pdf");
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new InputStreamResource(bis));
     }
 
     @PostMapping("/books")
@@ -98,9 +107,22 @@ public class BookController {
         }
     }
 
-    public Document createPdf(String filename) throws FileNotFoundException, DocumentException {
+    public ByteArrayInputStream createBookPdf(List<Book> books) throws FileNotFoundException, DocumentException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+        String filename = "pdftests/booklist" + rand.nextInt() + ".pdf";
+
+        Document doc = createPdf(out);
+        doc.open();
+        doc.add(addPdfList(books, doc));
+        doc.close();
+
+        return new ByteArrayInputStream(out.toByteArray());
+    }
+
+    public Document createPdf(ByteArrayOutputStream out) throws FileNotFoundException, DocumentException {
         Document doc = new Document();
-        PdfWriter.getInstance(doc, new FileOutputStream(filename));
+        PdfWriter.getInstance(doc, out);
         return doc;
     }
 
