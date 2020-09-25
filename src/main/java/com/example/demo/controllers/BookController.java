@@ -3,18 +3,30 @@ package com.example.demo.controllers;
 import com.example.demo.objects.Book;
 import com.example.demo.exceptions.BookNotFoundException;
 import com.example.demo.repositorys.BookRepo;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.math.BigInteger;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 @RestController
 public class BookController {
 
     private final BookRepo repository;
     public Book emptyBook;
+    Random rand = new Random();
 
     private static Logger log = LoggerFactory.getLogger(BookController.class);
 
@@ -26,6 +38,16 @@ public class BookController {
     public List<Book> getAllBooks() {
         log.info("Get all starting");
         return repository.findAll();
+    }
+
+    @RequestMapping(value = "/books/pdf", method = RequestMethod.GET)
+    String pdf() throws FileNotFoundException, DocumentException {
+        String filename = "pdftests/booklist" + rand.nextInt() + ".pdf";
+        Document doc = createPdf(filename);
+        doc.open();
+        doc.add(addPdfList(repository.findAll(), doc));
+        doc.close();
+        return "PDF created at " + System.getProperty("user.dir") + "/" + filename;
     }
 
     @PostMapping("/books")
@@ -74,5 +96,36 @@ public class BookController {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public Document createPdf(String filename) throws FileNotFoundException, DocumentException {
+        Document doc = new Document();
+        PdfWriter.getInstance(doc, new FileOutputStream(filename));
+        return doc;
+    }
+
+    public PdfPTable addPdfList(List<Book> data, Document doc) throws DocumentException {
+        doc.add(new Paragraph("Table of books:"));
+        doc.add(new Paragraph("\n"));
+        PdfPTable table = new PdfPTable(3);
+        PdfPCell cell = new PdfPCell();
+        PdfPCell cell1 = new PdfPCell(new Phrase("Id"));
+        PdfPCell cell2 = new PdfPCell(new Phrase("Title"));
+        PdfPCell cell3 = new PdfPCell(new Phrase("Publisher"));
+
+
+
+        Iterator<Book> bookIterator = data.iterator();
+
+        while (bookIterator.hasNext()) {
+            cell1.setPhrase(new Phrase(bookIterator.next().getId().toString()));
+            cell2.setPhrase(new Phrase(bookIterator.next().getTitle()));
+            cell2.setPhrase(new Phrase(bookIterator.next().getPublisher()));
+            table.addCell(cell1);
+            table.addCell(cell2);
+            table.addCell(cell3);
+        }
+
+        return table;
     }
 }

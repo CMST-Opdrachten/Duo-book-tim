@@ -23,10 +23,6 @@ class DuoRestfullBoekenApplicationTests {
     BigInteger id;
 
     @Test
-    void contextLoads() {
-    }
-
-    @Test
     void integrationTests() {
 
         postTests();

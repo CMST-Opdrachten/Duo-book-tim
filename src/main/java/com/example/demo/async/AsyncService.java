@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import com.itextpdf.text.Document;
 
 import java.math.BigInteger;
 import java.util.Arrays;
@@ -17,7 +18,6 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class AsyncService {
     private static Logger log = LoggerFactory.getLogger(AsyncService.class);
-    private List<Book> booksList;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -42,6 +42,16 @@ public class AsyncService {
         log.info("getAllBooks starts");
 
         Book response = restTemplate.getForObject("http://localhost:8080/book/{id}", Book.class);
+                Thread.sleep(2000);
+        log.info("Done.");
+        return CompletableFuture.completedFuture(response);
+    }
+
+    @Async("asyncExecutor")
+    public CompletableFuture<String> getPdf() throws InterruptedException{
+        log.info("getPDF starts");
+
+        String response = restTemplate.getForObject("http://localhost:8080/books/pdf", String.class);
                 Thread.sleep(2000);
         log.info("Done.");
         return CompletableFuture.completedFuture(response);

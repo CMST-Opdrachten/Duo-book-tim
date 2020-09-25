@@ -1,6 +1,7 @@
 package com.example.demo.async;
 
 import com.example.demo.objects.Book;
+import com.itextpdf.text.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,6 @@ public class AsyncController {
 
     private static Logger log = LoggerFactory.getLogger(AsyncController.class);
 
-
-
     @Autowired
     private AsyncService service;
 
@@ -33,5 +32,14 @@ public class AsyncController {
         return book.get();
     }
 
+    @RequestMapping(value =  "/getPdf", method = RequestMethod.GET)
+    public String getPdf() throws InterruptedException, ExecutionException {
+        log.info("test pdf starting");
+
+        CompletableFuture<String> doc = service.getPdf();
+
+        CompletableFuture.allOf(doc).join();
+        return doc.get();
+    }
 
 }
