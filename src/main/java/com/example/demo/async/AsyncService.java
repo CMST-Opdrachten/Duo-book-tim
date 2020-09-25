@@ -58,7 +58,7 @@ public class AsyncService {
         log.info("Done.");
         Thread.sleep(2000);
 
-        ResponseEntity response = restTemplate.getForObject("http://localhost:8080/books/pdf", ResponseEntity.class)
+        ResponseEntity response = restTemplate.getForObject("http://localhost:8080/books/pdf", ResponseEntity.class);
 
         return CompletableFuture.completedFuture(response);
     }
