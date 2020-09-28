@@ -17,14 +17,13 @@ import org.springframework.jms.support.converter.MessageType;
 import org.springframework.web.client.RestTemplate;
 
 import javax.jms.ConnectionFactory;
-import java.math.BigInteger;
 
 @SpringBootApplication
 @EnableJms
 public class BookFactory {
 
     @Autowired
-    private static RestTemplate restTemplate2 = new RestTemplate();
+    private static final RestTemplate restTemplate2 = new RestTemplate();
 
 
     @Bean
