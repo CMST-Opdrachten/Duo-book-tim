@@ -1,18 +1,11 @@
 package com.example.demo;
 
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
-import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.scheduling.annotation.Async;
 
 import java.math.BigInteger;
-import java.sql.SQLOutput;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.CoreMatchers.is;

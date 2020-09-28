@@ -1,27 +1,15 @@
 package com.example.demo;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.Random;
 
 @Configuration
 @ConfigurationProperties("spring.datasource")
 public class LoadDatabase {
 
-    private String driverClassName;
-    private String url;
-    private String username;
-    private String password;
-
+    @SuppressWarnings("SameReturnValue")
     @Profile("dev")
     @Bean
     public String devDatabaseConnection() {
@@ -29,6 +17,7 @@ public class LoadDatabase {
         return "DB Connection for DEV - HSQLDB";
     }
 
+    @SuppressWarnings("SameReturnValue")
     @Profile("production")
     @Bean
     public String prodDatabaseConnection() {

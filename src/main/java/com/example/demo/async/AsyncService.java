@@ -5,23 +5,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.*;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import com.itextpdf.text.Document;
 
-import java.io.ByteArrayInputStream;
 import java.math.BigInteger;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Service
 public class AsyncService {
-    private static Logger log = LoggerFactory.getLogger(AsyncService.class);
+    private static final Logger log = LoggerFactory.getLogger(AsyncService.class);
 
     @Autowired
     private RestTemplate restTemplate;
@@ -38,6 +34,7 @@ public class AsyncService {
         Book[] response = restTemplate.getForObject("http://localhost:8080/all", Book[].class);
                 Thread.sleep(2000);
         log.info("Done.");
+        assert response != null;
         return CompletableFuture.completedFuture(Arrays.asList(response));
     }
 

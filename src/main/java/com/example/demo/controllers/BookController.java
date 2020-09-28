@@ -9,8 +9,6 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.math.BigInteger;
 import java.util.Iterator;
 import java.util.List;
@@ -31,10 +28,11 @@ import java.util.Random;
 public class BookController {
 
     private final BookRepo repository;
+    @SuppressWarnings("unused")
     public Book emptyBook;
-    Random rand = new Random();
+    final Random rand = new Random();
 
-    private static Logger log = LoggerFactory.getLogger(BookController.class);
+    private static final Logger log = LoggerFactory.getLogger(BookController.class);
 
     BookController(BookRepo repository) {
         this.repository = repository;
@@ -110,8 +108,6 @@ public class BookController {
     public ByteArrayInputStream createBookPdf(List<Book> books) throws FileNotFoundException, DocumentException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-        String filename = "pdftests/booklist" + rand.nextInt() + ".pdf";
-
         Document doc = createPdf(out);
         doc.open();
         doc.add(addPdfList(books, doc));
@@ -130,7 +126,6 @@ public class BookController {
         doc.add(new Paragraph("Table of books:"));
         doc.add(new Paragraph("\n"));
         PdfPTable table = new PdfPTable(3);
-        PdfPCell cell = new PdfPCell();
         PdfPCell cell1 = new PdfPCell(new Phrase("Id"));
         PdfPCell cell2 = new PdfPCell(new Phrase("Title"));
         PdfPCell cell3 = new PdfPCell(new Phrase("Publisher"));
