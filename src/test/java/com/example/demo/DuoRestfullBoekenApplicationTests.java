@@ -15,7 +15,7 @@ class DuoRestfullBoekenApplicationTests {
 
     BigInteger id;
 
-    @Test
+    //@Test
     void integrationTests() {
 
         postTests();
