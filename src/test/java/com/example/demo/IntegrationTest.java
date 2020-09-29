@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import io.restassured.authentication.FormAuthConfig;
 import io.restassured.http.ContentType;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ import static io.restassured.RestAssured.*;
 import static org.hamcrest.CoreMatchers.is;
 
 
-//@Profile("integration-test")
+@Profile("integration-test")
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class IntegrationTest {
