@@ -1,5 +1,6 @@
-package com.example.demo.async;
+package com.example.demo.controllers;
 
+import com.example.demo.async.AsyncService;
 import com.example.demo.objects.Book;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

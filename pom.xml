@@ -111,11 +111,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <profiles>
-                        <profile>dev</profile>
-                        <profile>integration-test</profile>
-                        <profile>production</profile>
-                    </profiles>
+
                 </configuration>
             </plugin>
 
@@ -123,27 +119,7 @@
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>4.0.0</version>
-                <configuration>
-                    <changeLogFile>/src/main/resources/templates/book_table.xml</changeLogFile>
-                    <driver>org.postgresql.Driver</driver>
-                    <url>jdbc:postgresql://localhost:5432/bookshelf</url>
-                    <username>postgres</username>
-                    <password>6087</password>
-                    <outputChangeLogFile>bookshelfChangelog.xml</outputChangeLogFile>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>update</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
-
-
-
-
         </plugins>
     </build>
 

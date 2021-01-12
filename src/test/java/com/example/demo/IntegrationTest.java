@@ -24,9 +24,9 @@ public class IntegrationTest {
     @Test
     void integrationTests() {
 
-        postTests();
-        getTests();
-        delTest();
+        //postTests();
+        //getTests();
+        //delTest();
 
     }
 
